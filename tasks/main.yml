@@ -1,2 +1,15 @@
 ---
+- fail:
+    msg: This role is not implemented yet!
 # tasks file for ansible-backup-server
+- name: Make sure mountpoints exists
+  file:
+    path: "{{item}}"
+    state: directory
+    owner: root
+    group: root
+  with_items:
+    - backup01
+
+- fail:
+    msg: The system may not be provisioned according to the CMDB status.

@@ -1,15 +1,42 @@
 ---
-- fail:
-    msg: This role is not implemented yet!
 # tasks file for ansible-backup-server
+
+- name: Install necessary packages
+  pacman:
+    name:
+      - borgbackup
+      - sudo
+      - inetutils
+    state: latest
+
+- name: Ensure user 'borg' exists
+  user:
+    name: borg
+    comment: Backup User
+    shell: /bin/bash
+    home: /var/lib/borg-backup-server
+
 - name: Make sure mountpoints exists
   file:
     path: "{{item}}"
     state: directory
-    owner: root
-    group: root
+    owner: borg
+    group: borg
   with_items:
-    - backup01
+    - "{{borg_remote_path}}"
 
-- fail:
-    msg: The system may not be provisioned according to the CMDB status.
+- name: Make sure /var/lib/borg-backup-server/.ssh exists
+  file:
+    path: /var/lib/borg-backup-server/.ssh
+    state: directory
+    owner: borg
+    group: borg
+    mode: '0700'
+
+- name: Add backup-key to authorized_keys
+  lineinfile:
+    path: /var/lib/borg-backup-server/.ssh/authorized_keys
+    line: "command=\"borg serve --restrict-to-path /mnt/backup/borgbackup\",restrict ssh-rsa {{ lookup('passwordstore', 'borg/backup-key/public returnall=true')}}"
+    owner: borg
+    group: borg
+    create: yes

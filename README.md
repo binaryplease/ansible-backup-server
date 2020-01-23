@@ -34,7 +34,7 @@ passed in as parameters) is always nice for users too:
 ```yaml
 - hosts: servers
   roles:
-	 - ansible-backup-server
+    - ansible-backup-server
 ```
 
 License

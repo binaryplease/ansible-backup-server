@@ -1,7 +1,7 @@
 Borg Backup-Server
 =========
 
-This ansible role sets up the configuratino for my backup server based on borg
+This ansible role sets up the configuration for my backup server based on borg
 backup. This includes authentication via SSH aswell as the correct settings to
 server the repostitory.
 

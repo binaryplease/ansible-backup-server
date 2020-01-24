@@ -36,7 +36,7 @@
 - name: Add backup-key to authorized_keys
   lineinfile:
     path: /var/lib/borg-backup-server/.ssh/authorized_keys
-    line: "command=\"borg serve --restrict-to-path /mnt/backup/borgbackup\",restrict ssh-rsa {{ lookup('passwordstore', 'borg/backup-key/public returnall=true')}}"
+    line: "command=\"borg serve --restrict-to-path /mnt/backup/borgbackup\",restrict {{ lookup('passwordstore', 'borg/backup-key/public returnall=true')}}"
     owner: borg
     group: borg
     create: yes

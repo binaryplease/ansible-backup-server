@@ -1,13 +1,13 @@
 ---
 # tasks file for ansible-backup-server
 
-- name: Install necessary packages
-  pacman:
-    name:
-      - borgbackup
-      - sudo
-      - inetutils
-    state: latest
+# - name: Install necessary packages
+#   pacman:
+#     name:
+#       - borgbackup
+#       - sudo
+#       - inetutils
+#     state: latest
 
 - name: Ensure user 'borg' exists
   user:
